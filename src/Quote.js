@@ -37,7 +37,10 @@ class Quote {
         theString += '" - '; 
     }
     
-    fromText(line) {
-        
+    fromText(formatString) {
+
     }
+    
+
+    // make sure that there are proper facilities for serialization and deserialization 
 }
