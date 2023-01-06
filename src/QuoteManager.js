@@ -18,7 +18,7 @@ export default class QuoteManager {
     // adds a field to the FileManager
     appendQuote(quoteObject) {
 
-        if (this.fullQuoteMap == undefined) {throw "QuoteMap is undefined. Ensure that the readlist method is functioning properly as that often causes the this.fullQuoteMap field to be undefined."}
+        // if (this.fullQuoteMap == undefined) {throw "QuoteMap is undefined. Ensure that the readlist method is functioning properly as that often causes the this.fullQuoteMap field to be undefined."}
         // hash the quote body        
         let hashQuoteBody = quoteObject.quoteBody;
         let hashedQuote = crypto.createHash('md5').update(hashQuoteBody).digest('hex').toString();
@@ -39,17 +39,26 @@ export default class QuoteManager {
             // create a field for it in the list and set it equal to the stringified quote
             this.fullQuoteMap[hashedQuote] = JSON.stringify(quoteObject);
         }
-
-        console.log(this.fullQuoteMap)
     }
 
     // returns list of quote objects
     readList() {
         // read the file data from the master file
-        const quoteJSONText = fs.readFileSync(this.quoteFilePath);
-        const jsonData = JSON.parse(quoteJSONText);
+        try {
+            const quoteJSONText = fs.readFileSync(this.quoteFilePath);
+            const jsonData = JSON.parse(quoteJSONText);
+            // parse the json data and create quote objects
+            // iterate through the object
+            for (let key in jsonData) {
+                let jsonQuote = JSON.parse(jsonData[key]);
 
-        // parse the json data and create quote objects
+                this.appendQuote(
+                    new Quote(jsonQuote.quoteBody, jsonQuote.quoteCategory, jsonQuote.writer, jsonQuote.quoteSource)
+                )
+            }
+        } catch {
+            this.fullQuoteMap = {}
+        }
 
     }
 
