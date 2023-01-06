@@ -1,0 +1,23 @@
+{
+  "name": "quoteapi",
+  "version": "1.0.0",
+  "description": "personal quote api for getting quotes that I like",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattmars3/QuoteAPI.git"
+  },
+  "author": "Matt Marsico",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mattmars3/QuoteAPI/issues"
+  },
+  "homepage": "https://github.com/mattmars3/QuoteAPI#readme",
+  "dependencies": {
+    "crypto": "^1.0.1"
+  }
+}

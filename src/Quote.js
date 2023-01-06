@@ -1,7 +1,6 @@
-class Quote {
-    
+export default class Quote {
     // quote origin is where the quote came from. I.E. what movie, song, etc. Song title more movie name should be used if possible
-    constructor(quoteBody, quoteSource, quoteCategory, writer="", singer="", actor="") {
+    constructor(quoteBody, quoteCategory, writer="", quoteSource="") {
         quoteBody = quoteBody.trim();
         
         // get rid of quotation marks in quote as they will cause problems in serialization
@@ -11,10 +10,10 @@ class Quote {
         if (quoteBody[quoteBody.length-1] == '"') {
             quoteBody = quoteBody.substring(0, quoteBody.length-1);
         }
-        
+
         // if quote body doesn't have a period, add one
-        let finalChar = quoteBody[quoteBody.length-1];
-        if (finalChar != "?" || finalChar != "!" || finalChar != ".") {
+        let finalChar = quoteBody[quoteBody.length-1].trim();
+        if (finalChar != "?" && finalChar != "!" && finalChar != ".") {
             quoteBody += ".";
         }
         
@@ -22,25 +21,23 @@ class Quote {
         this.quoteBody = quoteBody;
         this.quoteSource = quoteSource;
         this.quoteCategory = quoteCategory;
+        
+        // this is very vague and can be a speaker or an actor or artist
         this.writer = writer;
-        this.singer = singer;
-        this.actor = actor;
     }    
     
-
-    // "Poker Face" - Lady Gaga (Poker Face)
-    // "this consumerism quote" - Tyler Durden (Fight Club)
-    
+    // converts a quote object to a displayable string
     toString() {
         let theString = '"';
         theString += this.quoteBody;
-        theString += '" - '; 
+        // since quote is already stored with ending punctuation none is needed
+        theString += '"';
+        if (this.writer != "") {
+            theString += " - " + this.writer;
+        }
+        if (this.quoteSource != "") {
+            theString += " (" + this.quoteSource + ")";
+        }
+        return theString;
     }
-    
-    fromText(formatString) {
-
-    }
-    
-
-    // make sure that there are proper facilities for serialization and deserialization 
 }
