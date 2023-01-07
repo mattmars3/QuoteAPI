@@ -17,7 +17,7 @@ export default class QuoteManager {
 
     // adds a field to the FileManager
     appendQuote(quoteObject) {
-
+        if (this.fullQuoteMap == undefined) {this.fullQuoteMap = {}}         
         // if (this.fullQuoteMap == undefined) {throw "QuoteMap is undefined. Ensure that the readlist method is functioning properly as that often causes the this.fullQuoteMap field to be undefined."}
         // hash the quote body        
         let hashQuoteBody = quoteObject.quoteBody;
@@ -40,26 +40,47 @@ export default class QuoteManager {
             this.fullQuoteMap[hashedQuote] = JSON.stringify(quoteObject);
         }
     }
+    
+    createQuoteFromJSON(jsonQuote) {
+        let quoteObj = new Quote(jsonQuote.quoteBody, jsonQuote.quoteCategory, jsonQuote.writer, jsonQuote.quoteSource)
+        return quoteObj;
+    }
 
     // returns list of quote objects
     readList() {
         // read the file data from the master file
         try {
+            // read the file into a variable
             const quoteJSONText = fs.readFileSync(this.quoteFilePath);
+            // parse the json data
             const jsonData = JSON.parse(quoteJSONText);
-            // parse the json data and create quote objects
+            
+            if (jsonData == {}) {throw "asdf"}
+
             // iterate through the object
             for (let key in jsonData) {
                 let jsonQuote = JSON.parse(jsonData[key]);
 
                 this.appendQuote(
-                    new Quote(jsonQuote.quoteBody, jsonQuote.quoteCategory, jsonQuote.writer, jsonQuote.quoteSource)
+                    this.createQuoteFromJSON(jsonQuote)
                 )
             }
         } catch {
+            console.log("JSON Parsing failed")
+            // if the code above fails it is probably because the file is empty
+            // if it is then it will be set to a bare object. Recover could also result
             this.fullQuoteMap = {}
         }
-
     }
-
+    
+    printAllQuotes() {
+        for (let key in this.fullQuoteMap) {
+            let quoteData = this.fullQuoteMap[key]
+            console.log(quoteData)
+        }
+    }
+    
+    debugPrint() {
+        console.log(this.fullQuoteMap)
+    }
 }
