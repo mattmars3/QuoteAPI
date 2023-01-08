@@ -43,6 +43,8 @@ export default class Quote {
         if (this.quoteSource != "") {
             theString += " (" + this.quoteSource + ")";
         }
+
+        theString += " : " + this.quoteCategory
         return theString;
     }
 }

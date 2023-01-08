@@ -1,5 +1,5 @@
-import * as crypto from 'crypto';
-import * as fs from 'fs';
+import {createHash} from 'crypto';
+import { readFileSync, writeFileSync } from 'fs';
 import Quote from './Quote.js'
 
 export default class QuoteManager {
@@ -15,7 +15,7 @@ export default class QuoteManager {
     // writes the list to the master file
     writeQuotes() {
         // IMPROVE THIS BY USING THE PATH MODULE
-        fs.writeFileSync(this.quoteFilePath, JSON.stringify(this.fullQuoteMap))
+        writeFileSync(this.quoteFilePath, JSON.stringify(this.fullQuoteMap))
     }
 
 
@@ -37,7 +37,7 @@ export default class QuoteManager {
     readListFromFile() {
             this.fullQuoteMap = {}
             // read file data into a variable
-            const quoteJSONText = fs.readFileSync(this.quoteFilePath);
+            const quoteJSONText = readFileSync(this.quoteFilePath);
             // parse the json data
             const jsonData = JSON.parse(quoteJSONText);
 
@@ -58,9 +58,15 @@ export default class QuoteManager {
         let arrayOfQuotes = [];
         for (let key in this.fullQuoteMap) {
             let quoteData = this.fullQuoteMap[key];
-            arrayOfQuotes += Quote.quoteFromJSON(quoteData);
+            arrayOfQuotes.push(Quote.quoteFromJSON(quoteData)); 
         }
         return arrayOfQuotes;
+    }
+
+    getRandomQuote() {
+        let quotesArr = this.getQuotesArray();
+        let randInd = Math.floor(Math.random() * quotesArr.length);
+        return quotesArr[randInd];
     }
 
     // removes the first quote containing the substring
@@ -72,7 +78,53 @@ export default class QuoteManager {
         }
     }
 
-    readFromExternalFile() {
+    // EXAMPLE QUOTE FORMAT: "I found blood and I saw stars All in the backseat of your car." -Andrew VanWyngarden (Indie Rokkers) : Growing up
+    // reads quotes from an external text file and adds them to map
+    readFromExternalFile(filePath) {
+        const quoteFile = fs.readFileSync(filePath, 'ascii')
+        const quotesList = quoteFile.split("\n")
+        
+        // list of quote objects created
+        let quoteList = [];
+    
+        // for each line in the file, try and create a quote object out of it
+        for (let lineNum in quotesList) {
+            let currentQuote = quotesList[lineNum]
+            let quoteConstructorArgList = []
+            const secondDoubleQuoteIndex = currentQuote.substring(1).indexOf('"');
 
+            // if the index = -1, then it doesn't exist and is not a well structured quote so it is omitted
+            if (secondDoubleQuoteIndex == -1) {continue}
+
+            // push the body of the quote
+            const quoteBody = currentQuote.substring(1, secondDoubleQuoteIndex+1)
+            quoteConstructorArgList.push(quoteBody)
+            
+            // get rid of body as it's not necessary anymore
+            currentQuote = currentQuote.substring(secondDoubleQuoteIndex + 4);
+
+            // get the writer
+            const openParenIndex = currentQuote.indexOf("(");
+            const writer = currentQuote.substring(0, openParenIndex-1);
+            quoteConstructorArgList.push(writer);
+            currentQuote = currentQuote.substring(openParenIndex+1)
+
+            // get the quote source
+            const endParenIndex = currentQuote.indexOf(")");
+            const quoteSource = currentQuote.substring(0, endParenIndex);
+            quoteConstructorArgList.push(quoteSource)
+
+            // push the quote category
+            const quoteCategory = currentQuote.substring(endParenIndex + 4).trim();
+            quoteConstructorArgList.push(quoteCategory);
+            
+            // create a quote object with this information
+            quoteList.push(new Quote(quoteConstructorArgList[0], quoteConstructorArgList[1], quoteConstructorArgList[2], quoteConstructorArgList[3]))
+        }
+
+        // append all these quotes
+        for (let quoteInd in quoteList) {
+            this.addQuote(quoteList[quoteInd]);
+        }
     }
 }

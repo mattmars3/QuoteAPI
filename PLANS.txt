@@ -1,0 +1,7 @@
+PLANS FOR THIS API:
+    create the QuoteList object for custom lists
+    create the endpoints with express
+
+    create a front end that accesses the api
+        create a terminal interface
+        create a part in my website

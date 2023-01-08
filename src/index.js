@@ -8,17 +8,8 @@ function run() {
     const qm = new QuoteManager();
 
     qm.readListFromFile();
-    qm.printAllQuotes();
-    qm.writeQuotes();
 
-    /* 
-        
-        Goals:
-            Fix Read and write systems so you can quickly add a quote
-            Add a print system to see all the quotes
-            decide whether the read method should return value or mutate
-    */
-    
+    qm.printAllQuotes()
 
 }
 
