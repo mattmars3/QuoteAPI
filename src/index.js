@@ -2,27 +2,14 @@ import Quote from './Quote.js'
 import QuoteManager from './QuoteManager.js'
 
 function run() {
-    let testQuote = new Quote("I don't wanna die without any scars", "Motivational", "Brad Pitt", "Fight Club");
-    let testQuote2 = new Quote("Balls", "Motivational", "Brad Pitt", "Fight Club");
-    // console.log(testQuote.quoteBody)
+    let testQuote = new Quote("Started out in the spring of 2003, Never went to school, nobody talked to me, except to tell me all the things I couldn't do", "Tough Times", "Jeremy McKinnon", "Right Back at It Again");
+
+    // initialize the quote manager
     const qm = new QuoteManager();
 
-    qm.readList(); 
+    qm.readListFromFile();
     qm.printAllQuotes();
-    // qm.appendQuote(testQuote)
-    // qm.writeList();
-    
-    
-    /*
-    qm.appendQuote(testQuote);
-    qm.appendQuote(testQuote2);
-    qm.writeList();
-    */
-
-    /*
-    qm.readList();
-    qm.printAllQuotes();
-    */
+    qm.writeQuotes();
 
     /* 
         

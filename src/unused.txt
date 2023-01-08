@@ -1,0 +1,28 @@
+    // adds a field to the FileManager
+    appendQuote(quoteObject) {
+        console.log("Beginning of appendQuote method")
+        if (this.fullQuoteMap == undefined) {this.fullQuoteMap = {}}         
+
+        // hash the quote body        
+        let hashQuoteBody = quoteObject.quoteBody;
+        let hashedQuote = crypto.createHash('md5').update(hashQuoteBody).digest('hex').toString();
+
+        // check if quote is already in list
+        let inList = false;
+
+        for (let key in quoteObject) {
+            try {
+                if (hashedQuote == this.fullQuoteList[key]) {
+                    inList = true;
+                }
+            } catch {
+                // code above will fail if it is not in the list
+            }
+        }
+
+        // if the key is not already in the list
+        if (inList != true) {
+            // create a field for it in the list and set it equal to the stringified quote
+            this.fullQuoteMap[hashedQuote] = JSON.stringify(quoteObject);
+        }
+    }

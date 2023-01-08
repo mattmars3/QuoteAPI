@@ -25,6 +25,11 @@ export default class Quote {
         // this is very vague and can be a speaker or an actor or artist
         this.writer = writer;
     }    
+
+    // takes in a serialized Quote object and returns a real quote object
+    static quoteFromJSON(quoteJSON) {
+        return new Quote(quoteJSON.quoteBody, quoteJSON.quoteCategory, quoteJSON.writer, quoteJSON.quoteSource);
+    }
     
     // converts a quote object to a displayable string
     toString() {
@@ -33,7 +38,7 @@ export default class Quote {
         // since quote is already stored with ending punctuation none is needed
         theString += '"';
         if (this.writer != "") {
-            theString += " - " + this.writer;
+            theString += " -" + this.writer;
         }
         if (this.quoteSource != "") {
             theString += " (" + this.quoteSource + ")";
