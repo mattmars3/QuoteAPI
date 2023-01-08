@@ -1,15 +1,18 @@
 import Quote from './Quote.js'
 import QuoteManager from './QuoteManager.js'
+import QuoteList from './QuoteList.js'
 
 function run() {
-    let testQuote = new Quote("Started out in the spring of 2003, Never went to school, nobody talked to me, except to tell me all the things I couldn't do", "Tough Times", "Jeremy McKinnon", "Right Back at It Again");
-
     // initialize the quote manager
     const qm = new QuoteManager();
 
     qm.readListFromFile();
 
-    qm.printAllQuotes()
+    let hash1 = qm.getQuoteHashBySubstring("I found");
+    let hash2 = qm.getQuoteHashBySubstring("I don't");
+    const hashes = [hash1, hash2]
+    qm.createQuoteList("Music", hashes) 
+    qm.writeQuoteLists();
 
 }
 

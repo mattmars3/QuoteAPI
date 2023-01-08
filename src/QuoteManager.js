@@ -1,6 +1,10 @@
 import {createHash} from 'crypto';
 import { readFileSync, writeFileSync } from 'fs';
 import Quote from './Quote.js'
+import QuoteList from './QuoteList.js';
+import path from 'path';
+import { readdirSync } from 'fs';
+import { dir } from 'console';
 
 export default class QuoteManager {
     constructor(quoteFilePath="./QUOTEMASTERLIST.json") {
@@ -10,14 +14,41 @@ export default class QuoteManager {
         // Object that stores key value pairs
         // the key is the hashed body of the quote and value is the quote object
         this.fullQuoteMap = {};
+        
+        this.quoteLists = [];
+        
+        // get the names of all the quoteLists
+        const quoteListNames = this.getQuoteListNames();
+        
+        // create all the quoteLists and append them to the quoteLists field
+        for (let quoteListName in quoteListNames) {
+            let quoteli = this.createQuoteList(quoteListNames[quoteListName]);
+            this.quoteLists.push(quoteli);
+        }
     }
-
+    
     // writes the list to the master file
     writeQuotes() {
         // IMPROVE THIS BY USING THE PATH MODULE
         writeFileSync(this.quoteFilePath, JSON.stringify(this.fullQuoteMap))
     }
 
+    getQuoteByHash(hash) {
+        return this.fullQuoteMap[hash];
+    }
+    
+    getQuoteBySubstring(substr) {
+        const hash = this.getQuoteHashBySubstring(substr);
+        return Quote.quoteFromJSON(this.fullQuoteMap[hash])
+    }
+    
+    getQuoteHashBySubstring(substr) {
+        for (let key in this.fullQuoteMap) {
+            if (this.fullQuoteMap[key].quoteBody.includes(substr)) {
+                return key;
+            }
+        }
+    }
 
     // adds a quote object to the QuoteManager full object
     addQuote(quoteObject) {
@@ -127,4 +158,32 @@ export default class QuoteManager {
             this.addQuote(quoteList[quoteInd]);
         }
     }
+    
+    createQuoteList(name, hashes=[]) {
+        // create the quotelist object
+        let ql = new QuoteList(name, hashes);
+        return ql;
+    }
+    
+    // file that reads the quoteList directory and all the files in it
+    getQuoteListNames() {
+        let dirInfo = readdirSync("./quoteLists/");
+        dirInfo.map(item => {item.substring(0, item.indexOf("."))})
+        return dirInfo;
+    }
+
+    // writes all quoteLists to their respective save files
+    writeQuoteLists() {
+        for (let quote in this.quoteLists) {
+            // console.log(this.quoteLists[quote]);
+            this.quoteLists[quote].writeToFile();
+        }
+        
+    }
+    
+    save() {
+        this.writeQuoteLists();        
+        this.writeQuotes();
+    }
+
 }
