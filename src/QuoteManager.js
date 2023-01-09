@@ -162,6 +162,7 @@ export default class QuoteManager {
     createQuoteList(name, hashes=[]) {
         // create the quotelist object
         let ql = new QuoteList(name, hashes);
+        this.quoteLists.push(ql)
         return ql;
     }
     
@@ -175,7 +176,6 @@ export default class QuoteManager {
     // writes all quoteLists to their respective save files
     writeQuoteLists() {
         for (let quote in this.quoteLists) {
-            // console.log(this.quoteLists[quote]);
             this.quoteLists[quote].writeToFile();
         }
         

@@ -8,10 +8,12 @@ export default class QuoteList {
         // set the name of the quoteList
         this.quoteListName = quoteListName;
         
+        // get rid of file ending in name
         const periodIndex = quoteListName.indexOf(".")
         if (periodIndex != -1) {
             quoteListName = quoteListName.substring(0, periodIndex);
         }
+
         // set the filepath to its folder + the name of the list
         this.filepath = "./quoteLists/" + quoteListName + ".json";
 
@@ -20,6 +22,8 @@ export default class QuoteList {
             // create it
             writeFileSync(this.filepath, JSON.stringify([]))
         } 
+        
+
         // read the file
         try {
             const existingData = this.readFromFile();
@@ -27,18 +31,16 @@ export default class QuoteList {
         } catch {
             // if you can't read it, it's probably because it exists but is empty. Set it to []
             console.error("Failed to read save file for " + quoteListName + " quoteList.")
+            this.quoteList = [];
         }
             
-        this.quoteList = [];
         // add all the quoteHashes to the list
-        console.log("Quotelist before for loop: " + this.quoteList)
         for (let key in quoteHashes) {
             let item = quoteHashes[key]
-            console.log("QuoteList Constructor argument hash: " + item)
+            
+            // PUSH TO THE LIST ONLY IF IT ISN'T IN THE LIST ALREADY
             this.quoteList.push(item)
         }
-
-        console.log("Successfully created QuoteList\nQuoteLIST: " + this.quoteList);
     }
 
     writeToFile() {
