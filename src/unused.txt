@@ -66,3 +66,58 @@
         this.writeQuotes();
     }
     */
+
+    readFromExternalFile(filePath) {
+        // split file by newlines
+        const quoteFile = readFileSync(filePath, 'ascii')
+        const quotesList = quoteFile.split("\n")
+        
+        // list of quote objects created
+        let quoteList = [];
+    
+        // for each line in the file, try and create a quote object out of it
+        for (let lineNum in quotesList) {
+            let currentQuote = quotesList[lineNum]
+
+            // if first character isn't quote then just skip the line
+            if (currentQuote[0] != '"') {
+                continue;
+            }
+            let quoteConstructorArgList = []
+
+            // search for final double quote
+            let reverseDoubleIndex = currentQuote.split("").reverse().join().indexOf('"');
+
+            // if the index = -1, then it doesn't exist and is not a well structured quote so it is omitted
+            if (reverseDoubleIndex == -1) {continue}
+
+            let secondDoubleQuoteIndex = currentQuote.length - currentQuote.split("").reverse().join().indexOf('"');
+            console.log(secondDoubleQuoteIndex)
+
+
+            // push the body of the quote
+            const quoteBody = currentQuote.substring(1, secondDoubleQuoteIndex+1)
+            quoteConstructorArgList.push(quoteBody)
+            
+            // get rid of body as it's not necessary anymore
+            currentQuote = currentQuote.substring(secondDoubleQuoteIndex + 4);
+
+            // get the writer
+            const openParenIndex = currentQuote.indexOf("(");
+            const writer = currentQuote.substring(0, openParenIndex-1);
+            quoteConstructorArgList.push(writer);
+            currentQuote = currentQuote.substring(openParenIndex+1)
+
+            // get the quote source
+            const endParenIndex = currentQuote.indexOf(")");
+            const quoteSource = currentQuote.substring(0, endParenIndex);
+            quoteConstructorArgList.push(quoteSource)
+
+            // push the quote category
+            const quoteCategory = currentQuote.substring(endParenIndex + 4).trim();
+            quoteConstructorArgList.push(quoteCategory);
+            
+            // create a quote object with this information
+            console.log(quoteConstructorArgList)
+            quoteList.push(new Quote(quoteConstructorArgList[0], quoteConstructorArgList[1], quoteConstructorArgList[2], quoteConstructorArgList[3]))
+        }

@@ -21,7 +21,7 @@ export default class QuoteManager {
     addQuote(quoteObject) {
         // hash the quote body        
         let hashQuoteBody = quoteObject.quoteBody;
-        let hashedQuote = crypto.createHash('md5').update(hashQuoteBody).digest('hex').toString();
+        let hashedQuote = createHash('md5').update(hashQuoteBody).digest('hex').toString();
 
         // make sure that this quote does not already exist in the object
         // THIS MIGHT NOT BE NECESSARY
@@ -120,29 +120,18 @@ export default class QuoteManager {
         // for each line in the file, try and create a quote object out of it
         for (let lineNum in quotesList) {
             let currentQuote = quotesList[lineNum]
+
+            // if first character isn't quote then just skip the line
+            if (currentQuote[0] != '"') {
+                continue;
+            }
+
             let quoteConstructorArgList = []
 
             // search for final double quote
-            let secondDoubleQuoteIndex = currentQuote.substring(1).indexOf('"');
-            while (true) {
-                if (currentQuote.substring(secondDoubleQuoteIndex+1) != -1) {
-                    secondDoubleQuoteIndex = currentQuote.substring(secondDoubleQuoteIndex+1).indexOf('"');
-                    console.log(secondDoubleQuoteIndex)
-                } else {
-                    break;
-                }
-            }
-
-            // search for final double quote
-            for (let ind = currentQuote.length, finalQuoteIndex=-1; i >= 0; i--) {
-                let quoind = currentQuote.substring(ind).indexOf('"');
-                if (quoind != -1) {
-                    finalQuoteIndex = quoind
-                }
-            }
+            
 
             // if the index = -1, then it doesn't exist and is not a well structured quote so it is omitted
-            if (secondDoubleQuoteIndex == -1) {continue}
 
             // push the body of the quote
             const quoteBody = currentQuote.substring(1, secondDoubleQuoteIndex+1)
@@ -167,6 +156,7 @@ export default class QuoteManager {
             quoteConstructorArgList.push(quoteCategory);
             
             // create a quote object with this information
+            console.log(quoteConstructorArgList)
             quoteList.push(new Quote(quoteConstructorArgList[0], quoteConstructorArgList[1], quoteConstructorArgList[2], quoteConstructorArgList[3]))
         }
 
