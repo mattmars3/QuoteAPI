@@ -13,18 +13,13 @@ export default class QuoteManager {
         // read the file and put quotes into the quotemap immediately
         // Object that stores key value pairs
         // the key is the hashed body of the quote and value is the quote object
+        // VALUE IS STORED AS JSON NOT QUOTE OBJECTS
         this.fullQuoteMap = {};
         
-        this.quoteLists = [];
+
+        // this.quoteLists = [];
         
-        // get the names of all the quoteLists
-        const quoteListNames = this.getQuoteListNames();
-        
-        // create all the quoteLists and append them to the quoteLists field
-        for (let quoteListName in quoteListNames) {
-            let quoteli = this.createQuoteList(quoteListNames[quoteListName]);
-            this.quoteLists.push(quoteli);
-        }
+        // initialize Quote Lists
     }
     
     // writes the list to the master file
@@ -111,6 +106,7 @@ export default class QuoteManager {
 
     // EXAMPLE QUOTE FORMAT: "I found blood and I saw stars All in the backseat of your car." -Andrew VanWyngarden (Indie Rokkers) : Growing up
     // reads quotes from an external text file and adds them to map
+    // NOTE: this method is very strict about formatting. I could possibly add a linting function that would ensure proper format beforehand
     readFromExternalFile(filePath) {
         const quoteFile = fs.readFileSync(filePath, 'ascii')
         const quotesList = quoteFile.split("\n")
@@ -159,6 +155,18 @@ export default class QuoteManager {
         }
     }
     
+    /* 
+    initializeQuoteLists() {
+        // get the names of all the quoteLists
+        const quoteListNames = this.getQuoteListNames();
+        
+        // create all the quoteLists and append them to the quoteLists field
+        for (let quoteListName in quoteListNames) {
+            let quoteli = this.createQuoteList(quoteListNames[quoteListName]);
+            this.quoteLists.push(quoteli);
+        }
+    }
+
     createQuoteList(name, hashes=[]) {
         // create the quotelist object
         let ql = new QuoteList(name, hashes);
@@ -185,5 +193,6 @@ export default class QuoteManager {
         this.writeQuoteLists();        
         this.writeQuotes();
     }
+    */
 
 }

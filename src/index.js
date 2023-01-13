@@ -10,9 +10,6 @@ function run() {
 
     let hash1 = qm.getQuoteHashBySubstring("I found");
     let hash2 = qm.getQuoteHashBySubstring("I don't");
-    const hashes = [hash1, hash2]
-    qm.createQuoteList("Music", hashes) 
-    qm.writeQuoteLists();
 
 }
 
