@@ -26,3 +26,43 @@
             this.fullQuoteMap[hashedQuote] = JSON.stringify(quoteObject);
         }
     }
+    
+    /* 
+    initializeQuoteLists() {
+        // get the names of all the quoteLists
+        const quoteListNames = this.getQuoteListNames();
+        
+        // create all the quoteLists and append them to the quoteLists field
+        for (let quoteListName in quoteListNames) {
+            let quoteli = this.createQuoteList(quoteListNames[quoteListName]);
+            this.quoteLists.push(quoteli);
+        }
+    }
+
+    createQuoteList(name, hashes=[]) {
+        // create the quotelist object
+        let ql = new QuoteList(name, hashes);
+        this.quoteLists.push(ql)
+        return ql;
+    }
+    
+    // file that reads the quoteList directory and all the files in it
+    getQuoteListNames() {
+        let dirInfo = readdirSync("./quoteLists/");
+        dirInfo.map(item => {item.substring(0, item.indexOf("."))})
+        return dirInfo;
+    }
+
+    // writes all quoteLists to their respective save files
+    writeQuoteLists() {
+        for (let quote in this.quoteLists) {
+            this.quoteLists[quote].writeToFile();
+        }
+        
+    }
+    
+    save() {
+        this.writeQuoteLists();        
+        this.writeQuotes();
+    }
+    */

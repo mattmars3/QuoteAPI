@@ -15,34 +15,6 @@ export default class QuoteManager {
         // the key is the hashed body of the quote and value is the quote object
         // VALUE IS STORED AS JSON NOT QUOTE OBJECTS
         this.fullQuoteMap = {};
-        
-
-        // this.quoteLists = [];
-        
-        // initialize Quote Lists
-    }
-    
-    // writes the list to the master file
-    writeQuotes() {
-        // IMPROVE THIS BY USING THE PATH MODULE
-        writeFileSync(this.quoteFilePath, JSON.stringify(this.fullQuoteMap))
-    }
-
-    getQuoteByHash(hash) {
-        return this.fullQuoteMap[hash];
-    }
-    
-    getQuoteBySubstring(substr) {
-        const hash = this.getQuoteHashBySubstring(substr);
-        return Quote.quoteFromJSON(this.fullQuoteMap[hash])
-    }
-    
-    getQuoteHashBySubstring(substr) {
-        for (let key in this.fullQuoteMap) {
-            if (this.fullQuoteMap[key].quoteBody.includes(substr)) {
-                return key;
-            }
-        }
     }
 
     // adds a quote object to the QuoteManager full object
@@ -60,6 +32,7 @@ export default class QuoteManager {
     }
 
     // reads from master file and updates Quote Manager's QuoteMap
+    // must call this to get all stored in file
     readListFromFile() {
             this.fullQuoteMap = {}
             // read file data into a variable
@@ -73,6 +46,33 @@ export default class QuoteManager {
             }
     }
     
+    // writes the list to the master file
+    writeQuotes() {
+        // IMPROVE THIS BY USING THE PATH MODULE
+        writeFileSync(this.quoteFilePath, JSON.stringify(this.fullQuoteMap))
+    }
+
+    // returns the quote object given hash value
+    getQuoteByHash(hash) {
+        return this.fullQuoteMap[hash];
+    }
+    
+    // returns the quote object given a substring
+    getQuoteBySubstring(substr) {
+        const hash = this.getQuoteHashBySubstring(substr);
+        return Quote.quoteFromJSON(this.fullQuoteMap[hash])
+    }
+    
+    // returns the hash for a substring value
+    getQuoteHashBySubstring(substr) {
+        for (let key in this.fullQuoteMap) {
+            if (this.fullQuoteMap[key].quoteBody.includes(substr)) {
+                return key;
+            }
+        }
+    }
+
+    // prints all quotes in quoteList
     printAllQuotes() {
         for (let key in this.fullQuoteMap) {
             let quoteData = this.fullQuoteMap[key]
@@ -80,6 +80,7 @@ export default class QuoteManager {
         }
     }
 
+    // returns array of quote objects
     getQuotesArray() {
         let arrayOfQuotes = [];
         for (let key in this.fullQuoteMap) {
@@ -89,6 +90,7 @@ export default class QuoteManager {
         return arrayOfQuotes;
     }
 
+    // returns random quote
     getRandomQuote() {
         let quotesArr = this.getQuotesArray();
         let randInd = Math.floor(Math.random() * quotesArr.length);
@@ -108,7 +110,8 @@ export default class QuoteManager {
     // reads quotes from an external text file and adds them to map
     // NOTE: this method is very strict about formatting. I could possibly add a linting function that would ensure proper format beforehand
     readFromExternalFile(filePath) {
-        const quoteFile = fs.readFileSync(filePath, 'ascii')
+        // split file by newlines
+        const quoteFile = readFileSync(filePath, 'ascii')
         const quotesList = quoteFile.split("\n")
         
         // list of quote objects created
@@ -118,7 +121,25 @@ export default class QuoteManager {
         for (let lineNum in quotesList) {
             let currentQuote = quotesList[lineNum]
             let quoteConstructorArgList = []
-            const secondDoubleQuoteIndex = currentQuote.substring(1).indexOf('"');
+
+            // search for final double quote
+            let secondDoubleQuoteIndex = currentQuote.substring(1).indexOf('"');
+            while (true) {
+                if (currentQuote.substring(secondDoubleQuoteIndex+1) != -1) {
+                    secondDoubleQuoteIndex = currentQuote.substring(secondDoubleQuoteIndex+1).indexOf('"');
+                    console.log(secondDoubleQuoteIndex)
+                } else {
+                    break;
+                }
+            }
+
+            // search for final double quote
+            for (let ind = currentQuote.length, finalQuoteIndex=-1; i >= 0; i--) {
+                let quoind = currentQuote.substring(ind).indexOf('"');
+                if (quoind != -1) {
+                    finalQuoteIndex = quoind
+                }
+            }
 
             // if the index = -1, then it doesn't exist and is not a well structured quote so it is omitted
             if (secondDoubleQuoteIndex == -1) {continue}
@@ -154,45 +175,4 @@ export default class QuoteManager {
             this.addQuote(quoteList[quoteInd]);
         }
     }
-    
-    /* 
-    initializeQuoteLists() {
-        // get the names of all the quoteLists
-        const quoteListNames = this.getQuoteListNames();
-        
-        // create all the quoteLists and append them to the quoteLists field
-        for (let quoteListName in quoteListNames) {
-            let quoteli = this.createQuoteList(quoteListNames[quoteListName]);
-            this.quoteLists.push(quoteli);
-        }
-    }
-
-    createQuoteList(name, hashes=[]) {
-        // create the quotelist object
-        let ql = new QuoteList(name, hashes);
-        this.quoteLists.push(ql)
-        return ql;
-    }
-    
-    // file that reads the quoteList directory and all the files in it
-    getQuoteListNames() {
-        let dirInfo = readdirSync("./quoteLists/");
-        dirInfo.map(item => {item.substring(0, item.indexOf("."))})
-        return dirInfo;
-    }
-
-    // writes all quoteLists to their respective save files
-    writeQuoteLists() {
-        for (let quote in this.quoteLists) {
-            this.quoteLists[quote].writeToFile();
-        }
-        
-    }
-    
-    save() {
-        this.writeQuoteLists();        
-        this.writeQuotes();
-    }
-    */
-
 }
