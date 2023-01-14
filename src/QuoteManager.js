@@ -127,18 +127,23 @@ export default class QuoteManager {
             }
 
             let quoteConstructorArgList = []
-
-            // search for final double quote
             
-
+            let secondDoubleQuoteIndex = currentQuote.split("").reverse().join("").indexOf('"')
+            
+            
             // if the index = -1, then it doesn't exist and is not a well structured quote so it is omitted
+            if (secondDoubleQuoteIndex == -1) {continue}
+            
+            secondDoubleQuoteIndex = currentQuote.length - secondDoubleQuoteIndex;
+            console.log(currentQuote)
+            console.log("SecondDoubleQuoteIndex: " + secondDoubleQuoteIndex)
 
             // push the body of the quote
             const quoteBody = currentQuote.substring(1, secondDoubleQuoteIndex+1)
             quoteConstructorArgList.push(quoteBody)
             
             // get rid of body as it's not necessary anymore
-            currentQuote = currentQuote.substring(secondDoubleQuoteIndex + 4);
+            currentQuote = currentQuote.substring(secondDoubleQuoteIndex + 2);
 
             // get the writer
             const openParenIndex = currentQuote.indexOf("(");
@@ -157,7 +162,7 @@ export default class QuoteManager {
             
             // create a quote object with this information
             console.log(quoteConstructorArgList)
-            quoteList.push(new Quote(quoteConstructorArgList[0], quoteConstructorArgList[1], quoteConstructorArgList[2], quoteConstructorArgList[3]))
+            quoteList.push(new Quote(quoteConstructorArgList[0], quoteConstructorArgList[3], quoteConstructorArgList[1], quoteConstructorArgList[2]))
         }
 
         // append all these quotes
