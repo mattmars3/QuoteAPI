@@ -1,10 +1,6 @@
 import {createHash} from 'crypto';
 import { readFileSync, writeFileSync } from 'fs';
 import Quote from './Quote.js'
-import QuoteList from './QuoteList.js';
-import path from 'path';
-import { readdirSync } from 'fs';
-import { dir } from 'console';
 
 export default class QuoteManager {
     constructor(quoteFilePath="./QUOTEMASTERLIST.json") {
@@ -98,12 +94,16 @@ export default class QuoteManager {
     }
 
     // removes the first quote containing the substring
-    removeQuote(substr) {
+    removeQuoteBySubstring(substr) {
         for (let key in this.fullQuoteMap) {
             if (this.fullQuoteMap[key].quoteBody.includes(substr)) {
                 delete this.fullQuoteMap[key]
             }
         }
+    }
+    
+    removeQuoteByHash(hash) {
+        delete this.fullQuoteMap[hash];
     }
 
     // EXAMPLE QUOTE FORMAT: "I found blood and I saw stars All in the backseat of your car." -Andrew VanWyngarden (Indie Rokkers) : Growing up
@@ -128,15 +128,13 @@ export default class QuoteManager {
 
             let quoteConstructorArgList = []
             
+            // find the final quote index
             let secondDoubleQuoteIndex = currentQuote.split("").reverse().join("").indexOf('"')
-            
             
             // if the index = -1, then it doesn't exist and is not a well structured quote so it is omitted
             if (secondDoubleQuoteIndex == -1) {continue}
             
             secondDoubleQuoteIndex = currentQuote.length - secondDoubleQuoteIndex;
-            console.log(currentQuote)
-            console.log("SecondDoubleQuoteIndex: " + secondDoubleQuoteIndex)
 
             // push the body of the quote
             const quoteBody = currentQuote.substring(1, secondDoubleQuoteIndex+1)
@@ -161,7 +159,6 @@ export default class QuoteManager {
             quoteConstructorArgList.push(quoteCategory);
             
             // create a quote object with this information
-            console.log(quoteConstructorArgList)
             quoteList.push(new Quote(quoteConstructorArgList[0], quoteConstructorArgList[3], quoteConstructorArgList[1], quoteConstructorArgList[2]))
         }
 

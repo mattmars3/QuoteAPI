@@ -1,5 +1,4 @@
-import { json } from 'express';
-import {existsSync, write} from 'fs'
+import {existsSync} from 'fs'
 import { readFileSync, writeFileSync } from 'fs';
 
 export default class QuoteList {

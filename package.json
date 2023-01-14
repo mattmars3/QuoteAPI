@@ -19,6 +19,7 @@
   "homepage": "https://github.com/mattmars3/QuoteAPI#readme",
   "dependencies": {
     "crypto": "^1.0.1",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "fs": "^0.0.1-security"
   }
 }
