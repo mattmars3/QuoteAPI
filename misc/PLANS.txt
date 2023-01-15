@@ -7,7 +7,11 @@ PLANS FOR THIS API:
         create a part in my website
         
 FIXES
-    the order when creating a QuoteList gets messed up with the automatic loading of them
+    fix the case where it is just a single swear word in a non-explicit quote
 
 DONTS
     put a period in the name of a quotelist
+
+FEATURES
+    filters bad words from non-explicit quotes
+    reads from a properly formatted file

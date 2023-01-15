@@ -1,3 +1,5 @@
+import Filter from 'bad-words'
+
 export default class Quote {
     // quote origin is where the quote came from. I.E. what movie, song, etc. Song title more movie name should be used if possible
     constructor(quoteBody, quoteCategory, writer="", quoteSource="", explicit=false) {
@@ -18,7 +20,6 @@ export default class Quote {
         }
         
         // assign all fields 
-        this.quoteBody = quoteBody;
         this.quoteSource = quoteSource;
         this.quoteCategory = quoteCategory;
         
@@ -27,6 +28,12 @@ export default class Quote {
         
         // whether or not the quote is explicit.
         this.explicit = explicit;
+        if (this.explicit == false) {
+            let filter = new Filter();
+            this.quoteBody = filter.clean(quoteBody);
+        } else {
+            this.quoteBody = quoteBody;
+        }
     }    
 
     // takes in a serialized Quote object and returns a real quote object

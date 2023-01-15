@@ -141,29 +141,37 @@ export default class QuoteManager {
             quoteConstructorArgList.push(quoteBody)
             
             // get rid of body as it's not necessary anymore
-            currentQuote = currentQuote.substring(secondDoubleQuoteIndex + 2);
+            currentQuote = currentQuote.substring(secondDoubleQuoteIndex+1);
 
             // get the writer
             const openParenIndex = currentQuote.indexOf("(");
-            const writer = currentQuote.substring(0, openParenIndex-1);
+            const dashIndex = currentQuote.indexOf('-')
+            const writer = currentQuote.substring(dashIndex+1, openParenIndex).trim();
             quoteConstructorArgList.push(writer);
-            currentQuote = currentQuote.substring(openParenIndex+1)
+            currentQuote = currentQuote.substring(openParenIndex)
 
             // get the quote source
+            const startParenIndex = currentQuote.indexOf("(")
             const endParenIndex = currentQuote.indexOf(")");
-            const quoteSource = currentQuote.substring(0, endParenIndex);
+            const quoteSource = currentQuote.substring(startParenIndex+1, endParenIndex);
             quoteConstructorArgList.push(quoteSource)
-            currentQuote = currentQuote.substring(quoteSource.length + 4);
+            currentQuote = currentQuote.substring(endParenIndex+1);
 
             // push the quote category
-            const nextColon = currentQuote.indexOf(':');
-            const quoteCategory = currentQuote.substring(0, nextColon-1).trim();
+            const firstColon = currentQuote.indexOf(':')
+            const nextColon = currentQuote.substring(firstColon+1).indexOf(':');
+            const quoteCategory = currentQuote.substring(firstColon+1, nextColon+1).trim();
             quoteConstructorArgList.push(quoteCategory);
-            
-// "I found blood and I saw stars All in the backseat of your car." -Andrew VanWyngarden (Indie Rokkers) : Growing up : false
-            currentQuote = currentQuote.substring(nextColon+2);
-            const explicit = currentQuote.trim();
-            quoteConstructorArgList.push(explicit)
+// "I found blood and I saw stars. All in the backseat of your car." -MGMT (Indie Rokkers) : Growing up : true
+            // is the quote explicit?
+            currentQuote = currentQuote.substring(nextColon);
+
+            const isExplicitText = currentQuote.trim();
+            if (isExplicitText == 'false') {
+                quoteConstructorArgList.push(false)
+            } else {
+                quoteConstructorArgList.push(true)
+            }
             
             // create a quote object with this information
             // quoteBody, quoteCategory, writer="", quoteSource="", explicit=false
@@ -174,6 +182,41 @@ export default class QuoteManager {
         for (let quoteInd in quoteList) {
             let theQuote = quoteList[quoteInd];
             this.addQuote(theQuote);
+        }
+    }
+
+    lintExternalFile(filePath) {
+        // split file by newlines
+        const quoteFile = readFileSync(filePath, 'ascii')
+        // list of newline split lines of an unlinted file
+        const quotesList = quoteFile.split("\n")
+
+        // lines that are linted are put into this array
+        let lintedLines = [];
+
+        for (lineNum in quotesList) {
+            let currentLine = quotesList[lineNum].trim();
+            console.log("CL: ", currentLine);
+
+            // if it is not a quote, put a hashtag for comment
+            if (currentLine[0] != '"') {
+                currentLine = "# " + currentLine;
+                console.log("Commented out line");
+            }
+        
+            // find the final quote index
+            let secondDoubleQuoteIndex = currentQuote.split("").reverse().join("").indexOf('"')
+
+            // check for a space after the finalDoubleQuote
+            if (currentLine[secondDoubleQuoteIndex+1] != " ") {
+                currentLine = currentLine.substring(0, secondDoubleQuoteIndex) + " " + currentLine.substring(secondDoubleQuoteIndex+1)
+                console.log("added space after double quote")
+            }
+
+
+        
+            // add newline
+            currentLine += '\n';
         }
     }
 }
