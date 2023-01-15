@@ -20,6 +20,11 @@ export default class Quote {
         }
         
         // assign all fields 
+        if (quoteSource.toLowerCase() == "unknown" || quoteSource.toLowerCase() == '?' || quoteSource.toLowerCase == "") {
+            this.quoteSource = "";
+        } else {
+            this.quoteSource = quoteSource;
+        }
         this.quoteSource = quoteSource;
         this.quoteCategory = quoteCategory;
         

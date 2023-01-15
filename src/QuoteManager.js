@@ -102,6 +102,7 @@ export default class QuoteManager {
         }
     }
     
+    // removes quote by the quote's hash
     removeQuoteByHash(hash) {
         delete this.fullQuoteMap[hash];
     }
@@ -182,41 +183,6 @@ export default class QuoteManager {
         for (let quoteInd in quoteList) {
             let theQuote = quoteList[quoteInd];
             this.addQuote(theQuote);
-        }
-    }
-
-    lintExternalFile(filePath) {
-        // split file by newlines
-        const quoteFile = readFileSync(filePath, 'ascii')
-        // list of newline split lines of an unlinted file
-        const quotesList = quoteFile.split("\n")
-
-        // lines that are linted are put into this array
-        let lintedLines = [];
-
-        for (lineNum in quotesList) {
-            let currentLine = quotesList[lineNum].trim();
-            console.log("CL: ", currentLine);
-
-            // if it is not a quote, put a hashtag for comment
-            if (currentLine[0] != '"') {
-                currentLine = "# " + currentLine;
-                console.log("Commented out line");
-            }
-        
-            // find the final quote index
-            let secondDoubleQuoteIndex = currentQuote.split("").reverse().join("").indexOf('"')
-
-            // check for a space after the finalDoubleQuote
-            if (currentLine[secondDoubleQuoteIndex+1] != " ") {
-                currentLine = currentLine.substring(0, secondDoubleQuoteIndex) + " " + currentLine.substring(secondDoubleQuoteIndex+1)
-                console.log("added space after double quote")
-            }
-
-
-        
-            // add newline
-            currentLine += '\n';
         }
     }
 }
