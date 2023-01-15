@@ -153,18 +153,27 @@ export default class QuoteManager {
             const endParenIndex = currentQuote.indexOf(")");
             const quoteSource = currentQuote.substring(0, endParenIndex);
             quoteConstructorArgList.push(quoteSource)
+            currentQuote = currentQuote.substring(quoteSource.length + 4);
 
             // push the quote category
-            const quoteCategory = currentQuote.substring(endParenIndex + 4).trim();
+            const nextColon = currentQuote.indexOf(':');
+            const quoteCategory = currentQuote.substring(0, nextColon-1).trim();
             quoteConstructorArgList.push(quoteCategory);
             
+// "I found blood and I saw stars All in the backseat of your car." -Andrew VanWyngarden (Indie Rokkers) : Growing up : false
+            currentQuote = currentQuote.substring(nextColon+2);
+            const explicit = currentQuote.trim();
+            quoteConstructorArgList.push(explicit)
+            
             // create a quote object with this information
-            quoteList.push(new Quote(quoteConstructorArgList[0], quoteConstructorArgList[3], quoteConstructorArgList[1], quoteConstructorArgList[2]))
+            // quoteBody, quoteCategory, writer="", quoteSource="", explicit=false
+            quoteList.push(new Quote(quoteConstructorArgList[0], quoteConstructorArgList[3], quoteConstructorArgList[1], quoteConstructorArgList[2], quoteConstructorArgList[4]))
         }
 
         // append all these quotes
         for (let quoteInd in quoteList) {
-            this.addQuote(quoteList[quoteInd]);
+            let theQuote = quoteList[quoteInd];
+            this.addQuote(theQuote);
         }
     }
 }

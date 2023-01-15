@@ -1,30 +1,33 @@
 Movie Quotes
-"This is your life and it's ending one minute at a time." -Tyler Durden (Fight Club) : Motivational
-"The things you own end up owning you." -Tyler Durden (Fight Club) : Motivational
-"I don't wanna die without any scars." -Tyler Durden (Fight Club) : Motivational
-"First you have to know, not fear, that someday you are going to die." -Tyler Durden (Fight Club) : Motivational
-"It's only after we've lost everything that we're free to do anything." -Tyler Durden (Fight Club) : Motivational
-"You are not your job, you're not how much money you have in the bank. You are not the car you drive. You're not the contents of your wallet. You are not your fucking khakis. You are all singing, all dancing crap of the world." -Tyler Durden (Fight Club) : Motivational
-"At the time, my life just seemed too complete, and maybe we have to break everything to make something better out of ourselves." -Tyler Durden (Fight Club) : Motivational
-"Warning: If you are reading this then this warning is for you. Every word you read of this useless fine print is another second off your life. Don't you have other things to do? Is your life so empty that you honestly can't think of a better way to spend these moments? Or are you so impressed with authority that you give respect and credence to all that claim it? Do you read everything you're supposed to read? Do you think every thing you're supposed to think? Buy what you're told to want? Get out of your apartment. Meet a member of the opposite sex. Stop the excessive shopping and masturbation. Quit your job. Start a fight. Prove you're alive. If you don't claim your humanity you will become a statistic. You have been warned." -Tyler Durden (Fight Club) : Motivational
-"If I could wake up in a different place, at a different time, could I wake up as a different person?" -Tyler Durden (Fight Club) : Motivational
+"This is your life and it's ending one minute at a time." -Tyler Durden (Fight Club) : Motivational : false
+"The things you own end up owning you." -Tyler Durden (Fight Club) : Motivational : false
+"I don't wanna die without any scars." -Tyler Durden (Fight Club) : Motivational : false
+"First you have to know, not fear, that someday you are going to die." -Tyler Durden (Fight Club) : Motivational : false
+"It's only after we've lost everything that we're free to do anything." -Tyler Durden (Fight Club) : Motivational : false
+"You are not your job, you're not how much money you have in the bank. You are not the car you drive. You're not the contents of your wallet. You are not your fucking khakis. You are all singing, all dancing crap of the world." -Tyler Durden (Fight Club) : Motivational : false
+"At the time, my life just seemed too complete, and maybe we have to break everything to make something better out of ourselves." -Tyler Durden (Fight Club) : Motivational : false
+"Warning: If you are reading this then this warning is for you. Every word you read of this useless fine print is another second off your life. Don't you have other things to do? Is your life so empty that you honestly can't think of a better way to spend these moments? Or are you so impressed with authority that you give respect and credence to all that claim it? Do you read everything you're supposed to read? Do you think every thing you're supposed to think? Buy what you're told to want? Get out of your apartment. Meet a member of the opposite sex. Stop the excessive shopping and masturbation. Quit your job. Start a fight. Prove you're alive. If you don't claim your humanity you will become a statistic. You have been warned." -Tyler Durden (Fight Club) : Motivational : false
+"If I could wake up in a different place, at a different time, could I wake up as a different person?" -Tyler Durden (Fight Club) : Motivational : false
 
 Songs
-"I found blood and I saw stars. All in the backseat of your car." -MGMT (Indie Rokkers) : Growing up
-"Never went to school, nobody talked to me, except to tell me all the things I couldn't do." -Jeremy McKinnon (Right Back At It Again) : Motivational
+"I found blood and I saw stars. All in the backseat of your car." -MGMT (Indie Rokkers) : Growing up : true
+"Never went to school, nobody talked to me, except to tell me all the things I couldn't do." -Jeremy McKinnon (Right Back At It Again) : Motivational : false
+"Oh yeah, life goes on. Long after the thrill of livin' is gone." -John Mellencamp (Jack & Diane) : Sentimental : false
+"Just hold on loosely, but don't let go. If you cling too tightly, you're gonna lose control." -38 Special (Hold On Loosely) : Wise : false
+"Feel as though nobody cares if I live or die. So I might as well begin to put some action in my life." -Judas Priest (Breaking the Law) : Motivational : false
+"Let's get lost, you can take me home, somewhere nice, we can be alone. Bikini top's comin' o-o-off. Don't be sad when the sun goes down, you'll wake up, and I'm not around. I've got to go, oh-oh-oh-oh-oh. We'll still have the summer after all." -Lady Gaga (Summerboy) : Sad : true
 
 My own quotes
-"Motivation is what you feel after watching Batman or Fight Club. Discipline is doing what you don't want to do because you know it will make you better." -Matt Marsico (Experience) : Motivational
+"Motivation is what you feel after watching Batman or Fight Club. Discipline is doing what you don't want to do because you know it will make you better." -Matt Marsico (Experience) : Motivational : false
 
 Misc Quotes
-"Drift away. Further each day. Leave behind no past. Where did you go?" -Vacations (Friends) : Sad
-"I have not failed. I've just found 10,000 ways that won't work." -Thomas A. Edison (FIXTHIS) : Motivational
-"Do not go where the path may lead, go instead where there is no path and leave a trail." -Ralph Waldo Emerson (FIXTHIS) : Adventure
-"The two most important days in your life are the day you are born and the day you find out why." -Mark Twain (FIXTHIS) : Philosophical
-"The journey of a thousand miles begins with one step" -Lao Tzu (FIXTHIS) : Motivational
-"You can waste your lives drawing lines. Or you can live your life crossing them." -Shonda Rhimes (FIXTHIS) : Motivational
+"Drift away. Further each day. Leave behind no past. Where did you go?" -Vacations (Friends) : Sad : false
+"I have not failed. I've just found 10,000 ways that won't work." -Thomas A. Edison (FIXTHIS) : Motivational : false
+"Do not go where the path may lead, go instead where there is no path and leave a trail." -Ralph Waldo Emerson (FIXTHIS) : Adventure : false
+"The two most important days in your life are the day you are born and the day you find out why." -Mark Twain (FIXTHIS) : Philosophical : false
+"The journey of a thousand miles begins with one step" -Lao Tzu (FIXTHIS) : Motivational : false
+"You can waste your lives drawing lines. Or you can live your life crossing them." -Shonda Rhimes (FIXTHIS) : Motivational : false
 
-"Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do." -Mark Twain (FIXTHIS) : Motivational
-"Never let the fear of striking out keep you from playing the game." -Babe Ruth (FIXTHIS) : Motivational
+"Twenty years from now you will be more disappointed by the things that you didn’t do than by the ones you did do." -Mark Twain (FIXTHIS) : Motivational : false
+"Never let the fear of striking out keep you from playing the game." -Babe Ruth (FIXTHIS) : Motivational : false
 
-"Quote with more ""quotes." -Matt (Test) : test
