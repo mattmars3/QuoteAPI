@@ -16,6 +16,11 @@ Songs
 "Just hold on loosely, but don't let go. If you cling too tightly, you're gonna lose control." -38 Special (Hold On Loosely) : Wise : false
 "Feel as though nobody cares if I live or die. So I might as well begin to put some action in my life." -Judas Priest (Breaking the Law) : Motivational : false
 "Let's get lost, you can take me home, somewhere nice, we can be alone. Bikini top's comin' o-o-off. Don't be sad when the sun goes down, you'll wake up, and I'm not around. I've got to go, oh-oh-oh-oh-oh. We'll still have the summer after all." -Lady Gaga (Summerboy) : Sad : true
+"Though the white jacket didn't fit, the friends I came with did, perfectly." -Bren Lukens of Modern Baseball (The Weekend) : Sentimental
+"You got a smile that could light this town, and we might need it. Cause it gets dark around here. Real dark around here." -Bren Lukens of Modern Baseball (The Weekend) : Sentimental
+"Most of my old friends I can only stand for the weekend. But that doesn't apply here. Doesn't apply here." -Bren Lukens of Modern Baseball (The Weekend) : Sentimental
+"You weren't the only one who thought of us that way. I spend most nights awake, wide awake" -Bren Lukens of Modern Baseball (Your Graduation) : Sentimental
+
 
 My own quotes
 "Motivation is what you feel after watching Batman or Fight Club. Discipline is doing what you don't want to do because you know it will make you better." -Matt Marsico (Experience) : Motivational : false

@@ -34,29 +34,45 @@ export default function runAPI() {
     console.log("Running 'runAPI' method")
     const qm = new QuoteManager();
     qm.readListFromFile();
-    
-    app.route('/quote', )
-        .get((req, res) => {
-            console.log(req.query)
-            res.send()
-        })
-        .post((req, res) => {
-            res.send()
-        })
-        .put((req, res) => {
-            res.send()
-        })
-        .delete((req, res) => {
-            res.send()
-        })
-        
-    app.route('/random')
-        .get((req, res) => {
-            res.send(qm.getRandomQuote())
-        })
+
+    // send request to quote endpoint and specify either
+    // hash, or substring for type, and appropriate query
+    app.get('/quote/:type/:query', (req, res) => {
+        if (req.params.type == 'hash') {
+            res.send(qm.getQuoteByHash(req.params.query));
+        } else {
+            res.send(qm.getQuoteBySubstring(req.params.query));
+        }
+    })
+
+    // get random quote
+    app.get('/random', (req, res) => {
+        res.send(qm.getRandomQuote())
+    })
+
+    // create new quote
+    app.post('/quote/:quoteJSON', (req, res) => {
+        qm.addQuoteFromJSON(req.params.quoteJSON)
+        res.send("Successfully created object!")
+    })
+
+    // app.put()
+
+    // app.delete()
 
     app.listen(portNumber, () => {
         console.log('QuoteAPI running on port ' + portNumber)
     })
         
 }
+
+/* 
+List of Endpoints
+    Get Quote
+    Add Quote
+    Edit Quote
+    Delete Quote
+
+    Get random quote
+
+*/

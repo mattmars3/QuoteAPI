@@ -27,6 +27,10 @@ export default class QuoteManager {
         }
     }
 
+    addQuoteFromJSON(quoteJSON) {
+        this.addQuote(Quote.quoteFromJSON(quoteJSON));
+    }
+
     // reads from master file and updates Quote Manager's QuoteMap
     // must call this to get all stored in file
     readListFromFile() {
