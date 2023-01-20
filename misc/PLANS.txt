@@ -15,3 +15,9 @@ DONTS
 FEATURES
     filters bad words from non-explicit quotes
     reads from a properly formatted file
+    
+The re-write plans
+    Have a throttling system which limits the amount of requests / hour of certain ip addresses
+    write documentation
+    Define all API responses and Errors and handle them properly
+    
